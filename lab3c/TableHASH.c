@@ -33,16 +33,18 @@ TableHash *createTH(int size) {
 }
 
 int addInfoTH(TableHash *table, char *key, char *info) {
-    int index = getIndex(key, table->maxSize);
     
     if(!info || !key ) {
         if(key) {
-            free(info);
-        } else if(info) {
             free(key);
+        }
+        if(info) {
+            free(info);
         }
         return 1;
     }
+    
+    int index = getIndex(key, table->maxSize);
     
     KeyspaceHash *ks = table->th[index].ks;
     while (ks) {
@@ -65,7 +67,7 @@ int addInfoTH(TableHash *table, char *key, char *info) {
             return 1;
         }
         ks->item = NULL;
-        ks->key = key;
+        ks->key = strdup(key);
         ks->next = NULL;
         ks->next = table->th[index].ks;
         table->th[index].ks = ks;
@@ -87,6 +89,7 @@ int addInfoTH(TableHash *table, char *key, char *info) {
         printf("NULL\n");
     }
     
+    free(key);
     return 0;
 }
 
@@ -181,6 +184,7 @@ int deleteOldVersionsTH(TableHash *table, char *key) {
     
     item = ks->item;
     if(!item->next) {
+        free(key);
         return 1;
     } else {
         item = item->next;
@@ -223,10 +227,11 @@ TableHash *searchKeyTH(TableHash *table, TableHash *search, char *key) {
         search = NULL;
         return NULL;
     }
+    
     search = createTH(1);
     KeyspaceHash *ksNew = calloc(1, sizeof(KeyspaceHash));
     ksNew->item = NULL;
-    ksNew->key = key;
+    ksNew->key = strdup(key);
     ksNew->next = NULL;
     search->th[0].ks = ksNew;
     item = ks->item;
@@ -243,11 +248,6 @@ TableHash *searchKeyTH(TableHash *table, TableHash *search, char *key) {
             ksNew->item = newItem;
         }
         item = item->next;
-    }
-    
-    if(!item) {
-        free(newItem);
-        free(ksNew);
     }
     
     return search;
@@ -284,7 +284,8 @@ TableHash *searchKeyVersionTH(TableHash *table, TableHash *search, char *key, in
     search = createTH(1);
     KeyspaceHash *ksNew = calloc(1, sizeof(KeyspaceHash));
     ksNew->item = NULL;
-    ksNew->key = key;
+    ksNew->key = strdup(key);
+    free(key);
     ksNew->next = NULL;
     search->th[0].ks = ksNew;
     item = ks->item;

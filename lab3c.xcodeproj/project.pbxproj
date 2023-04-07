@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		65BB151F29DE184A006AEEF0 /* TableHASH.c in Sources */ = {isa = PBXBuildFile; fileRef = 65BB151E29DE184A006AEEF0 /* TableHASH.c */; };
+		65BB152229DFD35C006AEEF0 /* dialog.c in Sources */ = {isa = PBXBuildFile; fileRef = 65BB152129DFD35C006AEEF0 /* dialog.c */; };
+		65BB152529DFD36C006AEEF0 /* readLib.c in Sources */ = {isa = PBXBuildFile; fileRef = 65BB152329DFD36C006AEEF0 /* readLib.c */; };
 		65E5B0C229DE15AE00E1C218 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 65E5B0C129DE15AE00E1C218 /* main.c */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +28,10 @@
 /* Begin PBXFileReference section */
 		65BB151D29DE184A006AEEF0 /* TableHASH.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableHASH.h; sourceTree = "<group>"; };
 		65BB151E29DE184A006AEEF0 /* TableHASH.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = TableHASH.c; sourceTree = "<group>"; };
+		65BB152029DFD35C006AEEF0 /* dialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dialog.h; sourceTree = "<group>"; };
+		65BB152129DFD35C006AEEF0 /* dialog.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dialog.c; sourceTree = "<group>"; };
+		65BB152329DFD36C006AEEF0 /* readLib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = readLib.c; sourceTree = "<group>"; };
+		65BB152429DFD36C006AEEF0 /* readLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = readLib.h; sourceTree = "<group>"; };
 		65E5B0BE29DE15AE00E1C218 /* lab3c */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lab3c; sourceTree = BUILT_PRODUCTS_DIR; };
 		65E5B0C129DE15AE00E1C218 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,6 +69,10 @@
 				65E5B0C129DE15AE00E1C218 /* main.c */,
 				65BB151D29DE184A006AEEF0 /* TableHASH.h */,
 				65BB151E29DE184A006AEEF0 /* TableHASH.c */,
+				65BB152129DFD35C006AEEF0 /* dialog.c */,
+				65BB152029DFD35C006AEEF0 /* dialog.h */,
+				65BB152329DFD36C006AEEF0 /* readLib.c */,
+				65BB152429DFD36C006AEEF0 /* readLib.h */,
 			);
 			path = lab3c;
 			sourceTree = "<group>";
@@ -125,6 +135,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				65BB151F29DE184A006AEEF0 /* TableHASH.c in Sources */,
+				65BB152529DFD36C006AEEF0 /* readLib.c in Sources */,
+				65BB152229DFD35C006AEEF0 /* dialog.c in Sources */,
 				65E5B0C229DE15AE00E1C218 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

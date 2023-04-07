@@ -200,15 +200,43 @@ int deleteOldVersionsTH(TableHash *table, char *key) {
     return 0;
 }
 
+void clearTableTHNoMain(TableHash *table) {
+        KeyspaceHash *ks = NULL;
+        KeyspaceHash *prev = NULL;
+        Item *item = NULL;
+        Item *del = NULL;
+        
+        if(table) {
+            for (int i = 0; i < table->maxSize; i++) {
+                ks = table->th[i].ks;
+                while (ks) {
+                    prev = ks;
+                    item = ks->item;
+                    while (item) {
+                        del = item;
+                        free(item->info);
+                        item = item->next;
+                        free(del);
+                    }
+                    free(ks->key);
+                    ks = ks->next;
+                    free(prev);
+                }
+            }
+        }
+    ks = table->th[0].ks = NULL;
+}
+
 TableHash *searchKeyTH(TableHash *table, TableHash *search, char *key) {
     
+    
     if(!key) {
-        clearTableHash(search);
+        clearTableTHNoMain(search);
         return NULL;
     }
     
     if(search) {
-        clearTableHash(search);
+        clearTableTHNoMain(search);
     }
     
     int index = getIndex(key, table->maxSize);
@@ -228,7 +256,6 @@ TableHash *searchKeyTH(TableHash *table, TableHash *search, char *key) {
         return NULL;
     }
     
-    search = createTH(1);
     KeyspaceHash *ksNew = calloc(1, sizeof(KeyspaceHash));
     ksNew->item = NULL;
     ksNew->key = strdup(key);
@@ -249,19 +276,19 @@ TableHash *searchKeyTH(TableHash *table, TableHash *search, char *key) {
         }
         item = item->next;
     }
-    
+    free(key);
     return search;
 }
 
 TableHash *searchKeyVersionTH(TableHash *table, TableHash *search, char *key, int version) {
     
     if(!key) {
-        clearTableHash(search);
+        clearTableTHNoMain(search);
         return NULL;
     }
     
     if(search) {
-        clearTableHash(search);
+        clearTableTHNoMain(search);
     }
     
     int index = getIndex(key, table->maxSize);
@@ -281,7 +308,6 @@ TableHash *searchKeyVersionTH(TableHash *table, TableHash *search, char *key, in
         return NULL;
     }
     
-    search = createTH(1);
     KeyspaceHash *ksNew = calloc(1, sizeof(KeyspaceHash));
     ksNew->item = NULL;
     ksNew->key = strdup(key);

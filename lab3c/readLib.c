@@ -6,42 +6,31 @@
 #include "TableHASH.h"
 
 int importFile(TableHash *table, TableHash *search) {
-    int check = 0;
+    int check = 1;
     FILE *file = NULL;
     file = getFile("\nВведите название файла\n", "r", &check);
-    char *string = NULL;
-    int i = 1;
-    char *n = NULL;
+    char *key = NULL;
+    char *info = NULL;
+    int i = 0;
     
     if(file) {
         printf("(OK) Файл найден. Начат импорт\n");
-        string = readString(file);
-        while (string) {
-            if(i % 3 == 1) {
-                if(n == NULL) {
-                    break;
-                }
-                free(string);
+        while (check) {
+            key = readString(file);
+            if(key == NULL) {
+                break;
             }
-            if(i % 3 == 2) {
-                if(!addInfoTH(table, n, string)) {
-                    free(string);
-                }
-            }
-            if(i % 3 == 0) {
-                if(strlen(string) == 0) {
-                    free(string);
-                } else {
-                    free(string);
-                    break;
-                }
-            }
-            
             i++;
-            string = readString(file);
+            info = readString(file);
+            if(info == NULL) {
+                break;
+            }
+            i++;
+            addInfoTH(table, key, info);
         }
-        fclose(file);
-        
+        if(i%2 == 1) {
+            free(key);
+        }
     } else {
         printf("(X) Файл не найден\n");
     }
@@ -97,6 +86,7 @@ char *readString(FILE *file) {
         } else {
             *check = -1;
         }
+        printf("%s\n", dir);
         free(dir);
         return file;
     }

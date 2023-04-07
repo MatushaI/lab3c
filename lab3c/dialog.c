@@ -136,7 +136,7 @@ int printTable_In(TableHash *table, TableHash *search) {
 
 TableHash* printTableSearch_In(TableHash *table, TableHash *search) {
     if(search != NULL) {
-        printTH(table);
+        printTH(search);
     } else {
         printf("\n(X) Результат поиска пуст\n");
     }

@@ -112,6 +112,10 @@ int printTH(TableHash *table) {
 }
 
 int deleteKeyTH(TableHash *table, char *key) {
+    
+    if(!key) {
+        return 1;
+    }
     int index = getIndex(key, table->maxSize);
     Item *item = NULL;
     Item *del = NULL;
@@ -146,12 +150,18 @@ int deleteKeyTH(TableHash *table, char *key) {
         item = item->next;
         free(del);
     }
+    
     free(key);
+    free(ks->key);
     free(ks);
     return 0;
 }
 
 int deleteOldVersionsTH(TableHash *table, char *key) {
+    
+    if(!key) {
+        return 1;
+    }
     int index = getIndex(key, table->maxSize);
     Item *item = NULL;
     Item *del = NULL;
@@ -187,6 +197,11 @@ int deleteOldVersionsTH(TableHash *table, char *key) {
 }
 
 TableHash *searchKeyTH(TableHash *table, TableHash *search, char *key) {
+    
+    if(!key) {
+        clearTableHash(search);
+        return NULL;
+    }
     
     if(search) {
         clearTableHash(search);
@@ -239,6 +254,11 @@ TableHash *searchKeyTH(TableHash *table, TableHash *search, char *key) {
 }
 
 TableHash *searchKeyVersionTH(TableHash *table, TableHash *search, char *key, int version) {
+    
+    if(!key) {
+        clearTableHash(search);
+        return NULL;
+    }
     
     if(search) {
         clearTableHash(search);
@@ -309,7 +329,7 @@ void clearTableHash(TableHash *table) {
                 }
                 free(ks->key);
                 ks = ks->next;
-                free(ks);
+                free(prev);
             }
         }
         free(table->th);

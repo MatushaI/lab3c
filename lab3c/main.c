@@ -3,6 +3,8 @@
 #include <readline/readline.h>
 
 int main(void) {
+    
+    
     TableHash *table = createTH(10);
     char *key = readline("Ключ\n > ");
     char *info = readline("Инфо\n > ");
